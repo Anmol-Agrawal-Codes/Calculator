@@ -19,7 +19,7 @@ function showHistory() {
         historyItem.style.fontSize = '25px';
         history.appendChild(historyItem);
     } else {
-        for (let index = len-1; index >= 0; index--) {
+        for (let index = len - 1; index >= 0; index--) {
             const element = calcHistory[index];
             let historyItem = document.createElement('div');
             historyItem.className = 'historyelement';
@@ -34,11 +34,11 @@ function showHistory() {
 
 historybutton.addEventListener('click', showHistory);
 
-function clearAll(){
+function clearAll() {
     dis.value = '';
 }
 
-function hide(){
+function hide() {
     history.style.display = 'none';
     bar1.style.display = 'none';
     bar2.style.display = 'none';
@@ -46,11 +46,11 @@ function hide(){
 function deleteLastEntry() {
     let calcHistory = JSON.parse(localStorage.getItem("calcHistory")) || [];
     if (calcHistory.length > 0) {
-      calcHistory.pop(); 
-      localStorage.setItem("calcHistory", JSON.stringify(calcHistory));
-      showHistory(); // It open each time when u click on CE if u dont want then u can remove it ....
+        calcHistory.pop();
+        localStorage.setItem("calcHistory", JSON.stringify(calcHistory));
+        showHistory(); // It open each time when u click on CE if u dont want then u can remove it ....
     }
-  }
+}
 
 
 

@@ -6,6 +6,12 @@ function isNumber(char) {
   return /^\d$/.test(char);
 }
 
+function addHistory(value) {
+  let calcHistory = JSON.parse(localStorage.getItem("calcHistory")) || [];
+  calcHistory.push(value);
+  localStorage.setItem("calcHistory", JSON.stringify(calcHistory));
+}
+
 document.getElementById("answer").readOnly = true;
 let screen = document.getElementById("answer");
 buttons = document.querySelectorAll("button");
@@ -40,13 +46,13 @@ for (item of buttons) {
       } else {
         screen.classList.remove("negative");
       }
-    } else if(buttonText=="(" || buttonText==")") {
-      if(flag==1){
-        flag =0;
+    } else if (buttonText == "(" || buttonText == ")") {
+      if (flag == 1) {
+        flag = 0;
       }
-      screenValue+=buttonText;
-      screen.value=screenValue;
-    } 
+      screenValue += buttonText;
+      screen.value = screenValue;
+    }
     else if (isNumber(buttonText)) {
       if (flag == 1) {
         screenValue = buttonText;
@@ -83,13 +89,14 @@ window.onerror = function () {
   console.clear();
 };
 
-// ... (same code as before)
-
 function checkForBracketMulti() {
-  // ... (same code as before)
 
   if (eval(screenValue) !== undefined) {
     screen.value = eval(screenValue);
+    addHistory({
+      lastScreenValue: screenValue,
+      result: screen.value
+    })
     lastScreenValue = screenValue;
     screenValue = screen.value;
     if (parseFloat(screen.value) < 0) {
@@ -97,7 +104,6 @@ function checkForBracketMulti() {
     } else {
       screen.classList.remove("negative");
     }
-    // ... (same code as before)
   }
   flag = 1;
 }
